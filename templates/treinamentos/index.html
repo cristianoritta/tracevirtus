@@ -1,0 +1,39 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row gx-4 p-5">
+
+    <h1><strong>Treinamentos</strong></h1>
+
+    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4">
+        <div class="card h-100">
+            <div class="card-body p-1">
+                <a href="#">
+                    <img src="{{ url_for('static', filename='img/treinamentos/pldft.png') }}" width="100%">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4">
+        <div class="card h-100">
+            <div class="card-body p-1">
+                <a href="#">
+                    <img src="{{ url_for('static', filename='img/treinamentos/i2.png') }}" width="100%">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-sm-6 pb-4">
+        <div class="card h-100">
+            <div class="card-body p-1">
+                <a href="#">
+                    <img src="{{ url_for('static', filename='img/treinamentos/baselvcfm.png') }}" width="100%">
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

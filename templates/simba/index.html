@@ -1,0 +1,109 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row vh-100">
+
+    <div class="col-2 bg-white border-end border-start">
+
+        <div class="d-grid gap-2 mt-5">
+
+            <h5 class="fw-bold">Unificar nomes</h5>
+            <p>Unifique nomes de pessoas em empresas a partir das respostas de diferentes instituições financeiras.</p>
+            <a href="/simba/unificar/nomes" class="btn btn-primary">
+                Unificar Nomes
+            </a>
+
+            <hr>
+            <h5 class="fw-bold">Formatar CPFs e CNPJs</h5>
+            <p>Unifique e formate CPFs e CNPJs a partir das respostas de diferentes instituições financeiras.</p>
+            <a href="/simba/unificar/cpfs" class="btn btn-primary">
+                Unificar CPFs
+            </a>
+
+            <hr>
+            <h5 class="fw-bold">Relatório de Análise</h5>
+            <p>Transforme os dados do SIMBA em um Relatório de Análise em texto.</p>
+            <a href="/simba/relatorio" class="btn btn-success btn-icon">
+                <i class="fas fa-file-doc"></i> Relatório de Análise
+            </a>
+        </div>
+
+    </div>
+    <div class="col-10">
+        <div class="row gx-4 p-5">
+
+            <h1><strong>SIMBA</strong></h1>
+
+            <div class="col-12 pb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title text-primary">
+                            <h5 class="fw-bolder">{{caso['nome']}}</h5>
+                        </div>
+                        <div class="card-tools">
+                            <a href="/simba/modal/cooperacao" class="btn btn-primary show-modal">Cadastrar Cooperação</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Número</th>
+                                        <th scope="col">Bancos</th>
+                                        <th scope="col">Arquivos</th>
+                                        <th scope="col">Titulares</th>
+                                        <th scope="col" class="col-1">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for cooperacao in cooperacoes %}
+                                    <tr hx-target="this" hx-swap="outerHTML">
+                                        <td>{{ cooperacao['id'] }}</td>
+                                        <td class="fw-bolder">{{ cooperacao['numero'] }}</td>
+                                        <td>
+                                            <a href="/simba/bancos/{{cooperacao['id']}}" class="text-decoration-none fw-bolder">{{ dados[cooperacao['id']]['bancos']|length }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="/simba/arquivos/{{cooperacao['id']}}" class="text-decoration-none fw-bolder">{{ dados[cooperacao['id']]['arquivos']|length }}</a>
+                                        </td>
+                                        <td class="fw-bolder">{{ dados[cooperacao['id']]['titulares']|length }}</td>
+                                        <td nowrap>
+
+                                            <a href="/simba/modal/upload/{{cooperacao['id']}}" class="btn btn-primary btn-icon show-modal" title="Upload da pasta de arquivos">
+                                                <i class="fas fa-upload"></i>
+                                            </a>
+
+                                            <a href="#"
+                                                class="btn btn-outline-danger btn-icon delete-cooperacao"
+                                                hx-delete="/simba/excluir/cooperacao/{{ cooperacao['id'] }}"
+                                                hx-target="closest tr"
+                                                hx-swap="none"
+                                                title="Excluir Cooperação">
+                                                <i class="fas fa-trash"></i> Excluir
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    {% if cooperacoes|length == 0 %}
+                                    <tr>
+                                        <td colspan="20" align="center">Nenhuma cooperação encontrada.</td>
+                                    </tr>
+                                    {% endif %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app/simba/index.js"></script>
+{% endblock %}

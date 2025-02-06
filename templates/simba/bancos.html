@@ -1,0 +1,56 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row vh-100">
+
+    <div class="col-12">
+        <div class="row gx-4 p-5">
+
+            <h1><strong>{{caso.nome}}</strong></h1>
+
+            <div class="col-12 pb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title text-primary">
+                            <h5 class="fw-bolder">Cooperação: {{cooperacao.numero}}</h5>
+                        </div>
+                        <div class="card-tools">
+                            <a href="/simba" class="btn btn-secondary">Voltar</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Nome</th>
+                                        <th class="col-1"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for banco in bancos %}
+                                    <tr>
+                                        <td>{{banco.codigo_compensacao}}</td>
+                                        <td>
+                                            <strong>{{banco.nome_reduzido}}</strong>
+                                            <br><small>{{banco.nome}}</small>
+                                        </td>
+
+                                        <td nowrap>
+                                            <a href="" class="btn btn-primary btn-icon">
+                                                <i class="fas fa-file-pdf"></i> Cadastros
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

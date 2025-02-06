@@ -1,0 +1,74 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row h-100">
+    <div class="col-9 pt-3 bg-body-color" id="painel" style="border-right: 1px solid #ccc;">
+        <h2 class="mb-5 text-success"><strong>Importação e processamento de dados concluídos.</strong></h2>
+
+        <div class="row gx-5 mb-5">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <span>Arquivos encontrados</span>
+                        <h1><strong>{{ resultado['arquivos'] }}</strong></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <span>Comunicações</span>
+                        <h1><strong>{{ resultado['comunicacoes'] }}</strong></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <span>Envolvidos</span>
+                        <h1><strong>{{ resultado['envolvidos'] }}</strong></h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <span>Registros processados</span>
+                        <h1><strong>{{ resultado['registros'] }}</strong></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 bg-white pt-3">
+
+        <h2 class="mb-5"><strong>Ações</strong></h2>
+
+        <div class="d-grid col-10 gap-3">
+
+            <a href="#" class="btn btn-lg btn-outline-primary d-flex justify-content-between">
+                Análise gráfica
+                <i class="fa-solid fa-chart-user"></i>
+            </a>
+            <a href="#" class="btn btn-lg btn-outline-primary d-flex justify-content-between">
+                Análise IA
+                <i class="fa fa-microchip-ai"></i>
+            </a>
+            <a href="/rif/naoprocessadas/{{rif}}" class="btn btn-lg btn-outline-primary d-flex justify-content-between">
+                Falhas no Processamento
+                <i class="fa-solid fa-cancel"></i>
+            </a>
+            <a href="/rif/relatorio" class="btn btn-lg btn-outline-primary d-flex justify-content-between">
+                Relatório analítico
+                <i class="fa fa-file-word"></i>
+            </a>
+            <a href="/rif" class="btn btn-lg btn-outline-primary d-flex justify-content-between">
+                Nova importação de dados
+                <i class="fa fa-upload"></i>
+            </a>
+
+        </div>
+
+    </div>
+</div>
+{%endblock%}

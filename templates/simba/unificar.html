@@ -1,0 +1,79 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row gx-4 p-5">
+
+    <h1><strong>Caso</strong> <span class="text-success">{{caso.nome}}</span></h1>
+
+    <div class="col-12 pb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between">
+                <div class="card-title">Unificar nomes</div>
+                <div class="card-tools">
+                    <a href="/simba" class="btn btn-secondary">Voltar</a>
+                </div>
+            </div>
+            <div class="card-body p-2" style="padding-left: 25px !important;">
+
+                <div class="row">
+
+                    <div class="col-lg-6">
+                        <span class="badge bg-success">Manter</span> Indica o nome que será mantido no banco de dados.
+                        <br><span class="badge bg-primary">Agrupar</span> Indica que esse nome será alterado, <strong>em todas as quebras de sigilo do caso atual</strong>, pelo nome escolhido em <span
+                            class="text-success">Manter</span>.
+
+                        <form method="post" action="/simba/unificar/nomes/corrigir" name="formNomes" id="formNomes" class="mt-5">
+                            <input type="hidden" name="id" value="cooperacao_id">
+                            <input type="hidden" name="table" value="table">
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="col-1">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="inlineCheckboxManter" disabled>
+                                                <label class="form-check-label text-success" for="inlineCheckboxManter">Manter</label>
+                                            </div>
+                                        </th>
+                                        <th class="col-1">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="inlineCheckboxManter" disabled>
+                                                <label class="form-check-label text-primary" for="inlineCheckboxManter">Agrupar</label>
+                                            </div>
+                                        </th>
+                                        <th class="col-10">
+                                            <button type="submit" class="btn btn-success" form="formNomes">Agrupar nomes</button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for pessoa in pessoas %}
+                                    <tr>
+                                        <td>
+                                            <input class="form-check-input" type="radio" name="nome_manter" value="{{pessoa.nome_titular}}">
+                                        </td>
+                                        <td>
+                                            <input class="form-check-input" type="checkbox" name="nome_agrupar" value="{{pessoa.nome_titular}}">
+                                        </td>
+                                        <td>
+                                            <label class="form-check-label">{{pessoa.cpf_cnpj}} - {{pessoa.nome_titular}}</label>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </form>
+
+                    </div>
+                    <div class="col-lg-6">
+                        {{ analise_ia|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

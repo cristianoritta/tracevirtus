@@ -1,0 +1,78 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="justify-content-center align-content-center vh-100 h-100">
+    <div class="container row gy-2 p-5">
+        <h1><strong><span class="text-primary">TraceVirtus</span> IA Financeira</strong></h1>
+
+        <div class="col-lg-4">
+            <a href="/rif" class="text-decoration-none text-black">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='img/relatorio.png') }}" class="card-img">
+                    <div class="card-body" align="center">
+                        <h5 class="card-title fw-bolder">Análise de RIF</h5>
+                        <p class="card-text">Processar os dados do COAF.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a href="/simba" class="text-decoration-none text-black">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='img/bancodedados.png') }}" class="card-img">
+                    <div class="card-body" align="center">
+                        <h5 class="card-title fw-bolder">Análise SIMBA</h5>
+                        <p class="card-text">Processar os dados do SIMBA.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a href="#" class="text-decoration-none text-black">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='img/analise.png') }}" class="card-img">
+                    <div class="card-body" align="center">
+                        <h5 class="card-title fw-bolder">Análise Gráfica</h5>
+                        <p class="card-text">Uma dashboard dos seus dados.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-4">
+            <a href="#" class="text-decoration-none text-black">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='img/bacen.png') }}" class="card-img">
+                    <div class="card-body" align="center">
+                        <h5 class="card-title fw-bolder">Relatórios de Análise</h5>
+                        <p class="card-text">Transformar os dados em texto com análise técnica e de tipologias da lavagem de dinheiro.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a href="#" class="text-decoration-none text-black">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='img/chat.png') }}" class="card-img">
+                    <div class="card-body" align="center">
+                        <h5 class="card-title fw-bolder">Chat IA</h5>
+                        <p class="card-text">Converse com seus dados, com todo o poder da IA generativa.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-4">
+            <a href="#" class="text-decoration-none text-black">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='img/treinamentos.png') }}" class="card-img">
+                    <div class="card-body" align="center">
+                        <h5 class="card-title fw-bolder">Treinamentos</h5>
+                        <p class="card-text">Os melhores treinamentos sobre investigação financeira.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

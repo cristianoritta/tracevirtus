@@ -1,0 +1,63 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row vh-100">
+
+    <div class="col-12">
+        <div class="row gx-4 p-5">
+
+            <h1><strong>{{caso.nome}}</strong></h1>
+
+            <div class="col-12 pb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title text-primary">
+                            <h5 class="fw-bolder">Cooperação: {{cooperacao.numero}}</h5>
+                        </div>
+                        <div class="card-tools">
+                            <a href="/simba" class="btn btn-secondary">Voltar</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Hash</th>
+                                        <th scope="col">Registros</th>
+                                        <th scope="col" class="col-1">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for arquivo in arquivos %}
+                                    <tr>
+                                        <td>{{arquivo.nome}}</td>
+                                        <td>{{arquivo.hash}}</td>
+                                        <td>{{arquivo.registros}}</td>
+                                        <td>
+                                            <a href="#"
+                                                class="btn btn-outline-danger btn-icon delete-arquivo-cooperacao"
+                                                hx-delete="/simba/arquivos/{{arquivo.id}}/excluir"
+                                                hx-target="closest tr"
+                                                hx-swap="none"
+                                                title="Excluir Arquivo">
+                                                <i class="fas fa-trash"></i> Excluir
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app/simba/arquivos.js"></script>
+{% endblock %}

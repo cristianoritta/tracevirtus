@@ -1,0 +1,77 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row vh-100" style="overflow-y: auto;">
+
+    <div class="col-12">
+        <div class="row gx-4 p-5">
+
+            <h1><strong>{{caso.nome}}</strong></h1>
+
+            <div class="col-12 pb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title text-primary">
+                            <h5 class="fw-bolder">Comunicações por Instituições: RIF {{rif.numero}}</h5>
+                        </div>
+                        <div class="card-tools">
+                            <a href="/rif/modal/instituicoes/{{rif.id}}" class="btn btn-primary show-modal"><i class="fas fa-plus"></i> Adicionar</a>
+                            <a href="/rif" class="btn btn-secondary">Voltar</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
+                        <div class="table-responsive">
+                            <table class="table" id="table-instituicoes">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Indexador</th>
+                                        <th scope="col">Instituição</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">CPF/CNPJ</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Valor</th>
+                                        <th scope="col">Transações</th>
+                                        <th scope="col">Plataforma</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for comunicacoes in instituicoes %}
+                                    <tr>
+                                        <td>{{comunicacoes.Indexador}}</td>
+                                        <td>{{comunicacoes.nomeComunicante}}</td>
+                                        <td>{{comunicacoes.tipo_transacao}}</td>
+                                        <td>{{comunicacoes.cpf|cpf_cnpj }}</td>
+                                        <td>{{comunicacoes.nome}}</td>
+                                        <td>{{comunicacoes.valor|moeda}}</td>
+                                        <td>{{comunicacoes.transacoes}}</td>
+                                        <td>{{comunicacoes.plataforma}}</td>
+                                        <td nowrap>
+                                            <a href="/rif/modal/comunicacao/{{comunicacoes.rif_id}}/{{comunicacoes.indexador}}/{{comunicacoes.id}}" class="btn btn-secondary show-modal"><i class="fas fa-file-csv"></i></a>
+                                            <a href="/rif/modal/instituicoes/{{comunicacoes.rif_id}}/{{comunicacoes.id}}" class="btn btn-secondary show-modal"><i class="fas fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#table-instituicoes').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+            },
+            order: [[1, 'asc']]
+        });
+    });
+</script>
+{% endblock %}

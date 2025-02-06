@@ -1,0 +1,47 @@
+<div class="nav nav-pills nav-flush d-flex align-self-center" id="menu">
+    <div class="nav-item {% if request.endpoint == '' %}active{%endif%} mb-3">
+        <a href="/" class="nav-link {% if request.endpoint == '/' %}text-primary{%else%}text-muted{%endif%}">
+            <i class="fa-duotone fa-house"></i>
+        </a>
+    </div>
+
+    <div class="nav-item {% if request.endpoint == 'casos' %}active{%endif%} mb-3">
+        <a href="/casos" class="nav-link {% if request.endpoint == '/casos' %}text-primary{%else%}text-muted{%endif%}" title="Gerenciar Casos">
+            <i class="fa-duotone fa-solid fa-suitcase"></i>
+        </a>
+    </div>
+
+    <div class="nav-item {% if request.endpoint == 'atualizacoes' %}active{%endif%} mb-3">
+        <a href="/atualizacoes" class="nav-link {% if request.endpoint == '/casos' %}text-primary{%else%}text-muted{%endif%}" title="Atualizar bases de dados de apoio">
+            <i class="fa-duotone fa-solid fa-database"></i>
+        </a>
+    </div>
+
+    <div class="nav-item {% if request.endpoint == 'ia' %}active{%endif%} mb-3">
+        <a href="/ia" class="nav-link {% if request.endpoint == '/ia' %}text-primary{%else%}text-muted{%endif%}" title="Modelo de IA">
+            <i class="fa-sharp-duotone fa-regular fa-microchip-ai"></i>
+        </a>
+    </div>
+
+
+    <!--
+    <div class="nav-item {% if request.endpoint == 'plugins' %}active{%endif%} mb-3">
+        <a href="/plugins" class="nav-link {% if request.endpoint == '/plugins' %}text-primary{%else%}text-muted{%endif%}" title="Plugins">
+            <i class="fa-sharp-duotone fa-regular fa-puzzle-piece-simple"></i>
+        </a>
+    </div>
+-->
+
+    <div class="nav-item {% if request.endpoint == 'minhaconta' %}active{%endif%} mb-3">
+        <a href="/minhaconta" class="nav-link {% if request.endpoint == '/minhaconta' %}text-primary{%else%}text-muted{%endif%}" title="Minha conta">
+            <i class="fa-duotone fa-user"></i>
+        </a>
+    </div>
+</div>
+<!--
+<div class="align-self-center fixed-bottom">
+    <a href="#" class="rounded-circle btn btn-primary" id="btn-help" title="Ajuda">
+        <i class="fas fa-question"></i>
+    </a>
+</div>
+-->

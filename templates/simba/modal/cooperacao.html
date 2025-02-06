@@ -1,0 +1,29 @@
+<form action="/simba/cooperacao/store/" method="POST" class="form">
+    <div class="row gy-4">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="numero">Número da Cooperação:</label>
+                <input type="text" name="numero" class="form-control" placeholder="Ex. 054-PCRS-000534-75" required>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="inquerito">Procedimento:</label>
+                <input type="text" name="inquerito" class="form-control" placeholder="Ex. 192/2024" required>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="inquerito">Processo:</label>
+                <input type="text" name="processo" class="form-control" placeholder="Ex. 5027493-33.2022.8.21.0001" required>
+            </div>
+        </div>
+
+        <div class="col-12 align-self-end">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-success btn-icon"><i class="fas fa-save"></i> Salvar</button>
+        </div>
+    </div>
+</form>

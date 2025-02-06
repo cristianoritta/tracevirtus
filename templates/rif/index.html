@@ -1,0 +1,114 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row vh-100">
+
+    <div class="col-2 bg-white border-end border-start">
+
+        <div class="d-grid gap-2 mt-5">
+            <h5 class="fw-bold">Relatório de Análise</h5>
+            <p>Transforme os dados dos RIFs em um Relatório de Análise em texto.</p>
+            <a href="/rif/relatorio" class="btn btn-success btn-icon">
+                <i class="fas fa-file-doc"></i> Relatório de Análise
+            </a>
+
+            <hr>
+            <h5 class="fw-bold">IA Financeira</h5>
+            <p>Converse com os seus dados, usando todo o poder da Inteligência Artificial Financeira.</p>
+            <a href="/rif/chat" class="btn btn-primary">
+                <i class="fas fa-messages"></i> Chat Virtus
+            </a>
+
+            <hr>
+            <h5 class="fw-bold">Exportar Dados</h5>
+            <p>Exportar os dados estruturados, em formato .CSV.</p>
+            <a href="/rif/exportar" class="btn btn-primary">
+                <i class="fas fa-table"></i> Exportar Dados
+            </a>
+        </div>
+
+    </div>
+    <div class="col-10">
+        <div class="row gx-4 p-5">
+
+            <h1><strong>Relatórios de Inteligência Financeira</strong></h1>
+
+            <div class="col-12 pb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title text-primary">
+                            <h5 class="fw-bolder">{{caso['nome']}}</h5>
+                        </div>
+                        <div class="card-tools">
+                            <a href="/rif/modal/novo" class="btn btn-primary show-modal">Cadastrar RIF</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Número</th>
+                                        <th scope="col">Instituições</th>
+                                        <th scope="col">Arquivos</th>
+                                        <th scope="col">Titulares</th>
+                                        <th scope="col">Inf. Adicionais</th>
+                                        <th scope="col" class="col-1">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for rif in rifs %}
+                                    <tr hx-target="this" hx-swap="outerHTML">
+                                        <td>{{ rif['id'] }}</td>
+                                        <td class="fw-bolder">{{ rif['numero'] }}</td>
+                                        <td>
+                                            {{ rif['instituicoes']|length }}
+                                        </td>
+                                        <td>
+                                            <a href="/rif/arquivos/{{rif['id']}}" class="text-decoration-none fw-bolder">{{ rif['arquivos']|length }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="/rif/titulares/{{rif['id']}}" class="text-decoration-none fw-bolder">{{ rif['titulares']|length }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="/rif/instituicoes/{{rif['id']}}" class="text-decoration-none fw-bolder"><i class="fas fa-table"></i></a>
+                                        </td>
+                                        <td nowrap>
+
+                                            <a href="/rif/modal/upload/{{rif['id']}}" class="btn btn-primary btn-icon show-modal" title="Upload da pasta de arquivos">
+                                                <i class="fas fa-upload"></i>
+                                            </a>
+
+                                            <a href="#"
+                                                class="btn btn-outline-danger btn-icon delete-rif"
+                                                hx-delete="/rif/excluir/{{ rif['id'] }}"
+                                                hx-target="closest tr"
+                                                hx-swap="none"
+                                                title="Excluir Cooperação">
+                                                <i class="fas fa-trash"></i> Excluir
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    {% if rifs|length == 0 %}
+                                    <tr>
+                                        <td colspan="20" align="center">Nenhum RIF encontrado.</td>
+                                    </tr>
+                                    {% endif %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app/rif/index.js"></script>
+{% endblock %}

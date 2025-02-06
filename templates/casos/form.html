@@ -1,0 +1,55 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row gx-4 p-5">
+
+    <h1><strong>Caso</strong> <span class="text-success">{{caso['nome']}}</span></h1>
+
+    <div class="col-12 pb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between">
+                <div class="card-title">Detalhes</div>
+            </div>
+            <div class="card-body p-5">
+                <form action="/casos/store/" method="post" id="formCaso">
+
+                    {{ csrf_input }}
+                    <input type="hidden" name="id" value="{{caso['id']}}">
+                    <input type="hidden" name="ativo" value="{{caso['ativo']}}">
+
+                    <div class="row gy-4">
+                        <div class="col-lg-8">
+                            <div class="form-group">
+                                <label for="nome">Nome:</label>
+                                <input type="text" name="nome" class="form-control" placeholder="Ex. Operação Pegasus" value="{{ caso['nome'] }}"
+                                    required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6">
+                            <div class="form-group">
+                                <label for="andamento">Andamento: <span class="text-danger">*</span> </label>
+                                <select name="andamento" id="andamento" class="form-select"  value="{{caso['andamento']}}" required>
+                                    <option value="1">Em andamento</option>
+                                    <option value="2">Finalizada</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <a href="/casos" class="btn btn-secondary btn-icon">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </a>
+                <button type="submit" class="btn btn-success btn-icon" form="formCaso">
+                    <i class="fas fa-save"></i> Salvar
+                </button>
+                <a href="/casos/excluir/{{caso.id}}" class="btn btn-danger btn-icon ajaxGlobalDelete">
+                    <i class="fas fa-trash-alt"></i> Excluir
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

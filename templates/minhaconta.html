@@ -1,0 +1,76 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row h-100" style="margin-left: 0px;">
+    <div class="col-9 p-5 bg-body-color">
+
+        <h3 class="mb-5"><strong>Minha Conta</strong></h3>
+
+        <form action="/minhaconta" method="POST" class="form">
+            <div class="row gy-4">
+                <div class="col-12 col-md-12">
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" name="name" class="form-control" placeholder="Name" value="{{ usuario[0] }}"
+                            required>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="email">Email funcional: <span class="text-danger">*</span> </label>
+                        <input type="email" name="email" class="form-control" placeholder="Email"
+                            value="{{ usuario[1] }}" required>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="form-group">
+                        <label for="nome">Token:</label>
+                        <input type="password" name="token" class="form-control" placeholder="Token"
+                            value="{{ usuario[2] }}" required>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-2">
+                    <div class="form-group">
+                        <label for="nome">Whatsapp:</label>
+                        <input type="number" name="telefone" class="form-control" placeholder="Whatsapp"
+                            value="{{ usuario[3] }}" required pattern="^\d{12,13}$"
+                            title="Por favor, insira um número com DDI (sem o +) e DDD. Ex: 5579996317026">
+                    </div>
+                </div>
+
+                <div class="col-12 d-flex justify-content-between">
+                    <a href="https://www.alias.seg.br/extractor" target="_blank" class="btn btn-primary">
+                        <i class="bi bi-key"></i> Preciso de um Token
+                    </a>
+                    <button type="submit" class="btn btn-success"><i class="bi bi-floppy"></i> Salvar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-3 pt-5" id="painel" style="border-left: 1px solid #ccc;">
+
+        <h3>
+            <strong><span class="text-warning">IAF</span> Inteligência Financeira</strong>
+        </h3>
+
+        <p>Configure sua conta e informe o token.</p>
+        <hr>
+
+        <p>Versão do software: {{versao}}</p>
+        <hr>
+
+        <p>
+            <small>
+                <a href="https://www.new.seg.br" target="_blank">
+                    NewSeg & Virtus Inteligência de Governo
+                </a>
+            </small>
+        </p>
+
+    </div>
+</div>
+{% endblock %}

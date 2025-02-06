@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-header">
+        {% if pessoa %}
+        {{pessoa.transparencia.nome.iloc[0]}}
+        {% else %}
+        Não encontrado
+        {% endif %}
+    </div>
+    <div class="card-body row">
+        {% if pessoa %}
+            {% for coluna in pessoa.transparencia.columns %}
+            <div class="col-4">
+                <strong><small>{{ coluna }}:</small></strong><br>
+                {% if pessoa.transparencia[coluna].iloc[0] == 'Sim' %}
+                <span class="badge bg-success">{{ pessoa.transparencia[coluna].iloc[0] }}</span>
+                {% else %}
+                {{ pessoa.transparencia[coluna].iloc[0] }}
+                {% endif %}
+                <br>
+            </div>
+            {% endfor %}
+        {% else %}
+            Não encontrado
+        {% endif %}
+
+    </div>
+</div>

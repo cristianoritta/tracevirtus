@@ -1,0 +1,90 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row gx-4 p-5">
+
+    <h1><strong>Casos</strong></h1>
+
+    <div class="col-12 pb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between">
+                <div class="card-title">Gerenciamento de Casos</div>
+                <div class="card-tools">
+                    <a href="/casos/form" class="btn btn-primary">Cadastrar</a>
+                </div>
+            </div>
+            <div class="card-body p-1">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Andamento</th>
+                                <th scope="col">Investigados</th>
+                                <th scope="col">RIF</th>
+                                <th scope="col">SIMBA</th>
+                                <th scope="col" class="col-1">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for caso in casos %}
+                            <tr>
+                                <td>{{ caso['id'] }}</td>
+                                <td>
+                                    <h4 class="fw-bolder">{{ caso['nome'] }}</h4>
+                                </td>
+                                <td>
+                                    {% if caso['andamento'] == 1 %}
+                                    Em andamento
+                                    {% else %}
+                                    Finalizada
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="/investigados/{{caso['id']}}" class="btn btn-primary btn-icon"><i class="far fa-folder-user"></i> Investigados</a>
+                                </td>
+                                <td>
+                                    <a href="/rif/{{caso['id']}}" class="btn btn-primary btn-icon"><i class="far fa-folder"></i> RIF</a>
+                                </td>
+                                <td>
+                                    <a href="/simba/{{caso['id']}}" class="btn btn-primary btn-icon"><i class="far fa-folder"></i> Simba</a>
+                                </td>
+                                <td nowrap>
+                                    <button
+                                        id="caso-btn-{{ caso['id'] }}"
+                                        class="btn btn-outline-primary {% if caso['ativo'] == 1 %}text-warning{% endif %}"
+                                        hx-get="/casos/ativo/{{ caso['id'] }}"
+                                        hx-trigger="click"
+                                        hx-swap="none"
+                                        hx-target="this"
+                                        title="Definir caso ativo"
+                                        hx-on="htmx:afterRequest: ativarCaso('{{ caso['id'] }}')"> <!-- Chama a função JS após a requisição -->
+                                        <i class="fa fa-star"></i>
+                                    </button>
+                                    <a href="/casos/form/{{caso['id']}}" class="btn btn-primary btn-icon" title="Editar Caso">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            
+
+                            {% else %}
+                            <tr>
+                                <td colspan="5" align="center">Nenhum caso encontrado.</td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app/casos/index.js"></script>
+{% endblock %}

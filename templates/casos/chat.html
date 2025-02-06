@@ -1,0 +1,107 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row" style="height: 93%; overflow-y: auto; border-bottom: 1px solid #ccc; padding-left: 25px; ">
+    <div class="col-9 pt-3 bg-body-color" id="painel" style="border-right: 1px solid #ccc; overflow-y: auto;">
+        <h2 class="mb-5 text-success"><strong>Chat com IA.</strong></h2>
+
+        {% for dialogo in dialogos[1:] %}
+        <div class="row mb-3">
+            <div class="col-11 p-2" id="messages">
+
+                {% if dialogo.role == 'assistant' %}
+                <div class="message-bot" style="margin-left: 50px;">
+                    <span id="resposta-{{ loop.index0 }}">
+                        {{dialogo.content}}
+                    </span>
+                    <a href="#" class="text-copy btn btn-sm btn-outline-secondary" data-texto="{{dialogo.content}}" data-id="{{ loop.index0 }}">
+                        <i class="fa-solid fa-copy"></i>
+                    </a>
+                </div>
+                {% else %}
+                <div class="message message-out">
+                    <p class="message-text m-3">
+                        {{ dialogo.content }}
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="col-3">
+
+        <h2 class="mb-5 mt-5"><strong>Assistentes de IA</strong></h2>
+
+        <div class="col-10 p-2">
+            {% for agente in agentes %}
+
+            <div class="row mb-3">
+                {% if agente.resposta == 1 %}
+                <a href="#" class="btn btn-lg btn-outline-secondary agente-chat d-flex justify-content-between" data-prompt="{{agente.prompt}}" data-enviar="{{agente.enviar}}">
+                    {{agente.nome}}
+                    <i class="fas fa-keyboard"></i>
+                </a>
+                {% else %}
+                <a href="/ia/agente/{{agente.id}}/download" class="btn btn-lg btn-outline-secondary d-flex justify-content-between agente-chat-download" download>
+                    {{agente.nome}}
+                    <i class="fas fa-file-word"></i>
+                </a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="position: absolute; bottom: 0px; border-top: 1px solid #ccc; border-left: 1px solid #ccc; font-weight: bold; margin-left: -13px; padding-left: 15px;;" class="p-2 bg-body-color"
+            id="sugestoes">
+
+            {% for sugestao in sugestoes %}
+            <div class="mb-2">
+                <a href="#" class="agente-chat mb-2 text-decoration-none" data-prompt='{{sugestao.pergunta}}'>
+                    <small><i class="fas fa-plus"></i>{{sugestao.pergunta}}</small>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+</div>
+<div class="row" style="height: 10%; padding-left: 20px; background-color: #fff;">
+    <form action="/casos/chat" method="post">
+        <div class="input-group">
+            <input type="hidden" name="agent" id="agent">
+            <input type="text" class="form-control" style="border: none;" name="pergunta" id="pergunta" placeholder="Faça perguntas diretamente para o conteúdo das transcrições.">
+            <button type="submit" class="input-group-text rounded-circle" id="btn-submit"><i class="fas fa-arrow-right"></i></button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function(){
+        $('.text-copy').click(function () {
+            textoParaCopiar = $(this).data('texto');
+            // Copia o texto para a área de transferência
+            navigator.clipboard.writeText(textoParaCopiar)
+                .then(() => {
+                    Swal.fire({
+                        title: 'Transcriber IA',
+                        text: "Texto copiado para área de transferência.",
+                        type: 'info',
+                        icon: 'info',
+                    });
+                })
+                .catch(err => {
+                    console.error("Erro ao copiar texto: ", err);
+                    alert("Erro ao copiar o texto. Tente novamente.");
+                });
+        });
+    });
+
+</script>
+{% endblock %}

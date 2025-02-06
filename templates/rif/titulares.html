@@ -1,0 +1,52 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row vh-100" style="overflow-y: auto;">
+
+    <div class="col-12">
+        <div class="row gx-4 p-5">
+
+            <h1><strong>{{caso.nome}}</strong></h1>
+
+            <div class="col-12 pb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title text-primary">
+                            <h5 class="fw-bolder">RIF: {{rif.numero}}</h5>
+                        </div>
+                        <div class="card-tools">
+                            <a href="/rif" class="btn btn-secondary">Voltar</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Indexador</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">CPF/CNPJ</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Comunicante</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for titular in titulares %}
+                                    <tr>
+                                        <td>{{titular.Indexador}}</td>
+                                        <td>{{titular.nomeEnvolvido}}</td>
+                                        <td>{{titular.cpfCnpjEnvolvido}}</td>
+                                        <td>{{titular.tipoEnvolvido}}</td>
+                                        <td>{{titular.nomeComunicante}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

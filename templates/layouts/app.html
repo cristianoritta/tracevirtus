@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-thedme="dark">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>IAF - Inteligência Financeira</title>
+
+        <script src="/static/js/pace.min.js"></script>
+        <link rel="stylesheet" href="/static/css/center-simple.css">
+
+        <!-- CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+        <link href='https://fonts.googleapis.com/css?family=Source Sans Pro' rel='stylesheet'>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+            integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin />
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css">
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="/static/css/leaflet.icon-material.css">
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" type="text/css">
+
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css" type="text/css">
+
+        <link rel="stylesheet" href="/static/css/custom.css">
+
+        <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    </head>
+
+    <body>
+
+        <main class="d-flex flex-nowrap h-100 vh-100">
+            {% include 'layouts/menu.html' %}
+
+            <div class="flex-shrink-0 w-100" id="main-div">
+                
+                {% with messages = get_flashed_messages() %}
+
+                    {% if messages %}
+                    <div class="row position-absolute m-3 top-0 end-0">
+                        {% for message in messages %}
+                        <div class="row alert alert-{{ message.split(':')[0] }}">
+                            {{ message.split(':')[1] }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                {% endwith %}
+
+                {% block site %}
+                {% endblock %}
+
+                <div id="modal-help" class="card card-bordered" style="display: none;">
+                    <div class="card-body">
+                        <div class="mt-5 row">
+                            <div class="col">
+                                <h3 class="bold">Oi Cristiano 👋</h3>
+                                <p>Como posso ajudar você?</p>
+                                <hr>
+
+                                <div class="scroll-content" style="overflow-y: auto; max-height: 330px;">
+
+                                    <div class="accordion" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Como transcrever meus áudios ?
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <ul>
+                                                        <li>Configure suas preferências de transcrição. <a href="/configuracoes"><i class="fas fa-cogs"></i></a></li>
+                                                        <li>No menu lateral esquerdo, clique em <strong>Carregar arquivos</strong>. <a href="/configuracoes"><i
+                                                                    class="fa-duotone fa-solid fa-folder-open"></i></a></li>
+                                                        <li>Localize a pasta onde estão os arquivos que você quer carregar. <strong>Atenção: </strong> Todos os arquivos da pasta e subpastas serão
+                                                            transcritos.</li>
+                                                        <li>Depois de selecionar os arquivos, o software vai mostrar todos em lista.</li>
+                                                        <li>Quando estiver pronto para começar, clique em <strong class="text-success">Transcrever</strong>.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Faça sua pergunta">
+                            <span class="input-group-text" id="basic-addon1">?</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal -->
+
+        <button type="button" id="open-modal" data-bs-toggle="modal" data-bs-target="#modal"></button>
+        <div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">IAF</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modal -->
+
+        <!-- SCRIPT -->
+        <script src="https://kit.fontawesome.com/3323deb3fd.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+        <script src="//cdn.datatables.net/2.2.1/js/dataTables.min.js"></script>
+        
+        <script src="/static/js/app.js"></script>
+        <script src="/static/js/smooth-scrollbar.js"></script>
+
+        {% block scripts %}
+        {% endblock %}
+
+    </body>
+
+</html>

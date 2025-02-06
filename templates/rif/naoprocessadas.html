@@ -1,0 +1,61 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row vh-100" style="overflow-y: auto;">
+
+    <div class="col-12">
+        <div class="row gx-4 p-5">
+
+            <h1><strong>{{caso.nome}}</strong></h1>
+
+            <div class="col-12 pb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title text-primary">
+                            <h5 class="fw-bolder">Comunicações não processadas: RIF: {{rif.numero}}</h5>
+                        </div>
+                        <div class="card-tools">
+                            <a href="/rif" class="btn btn-secondary">Voltar</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
+                        <div class="table-responsive">
+                            <table class="table" id="table-naoprocessadas">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Indexador</th>
+                                        <th scope="col">Comunicante</th>
+                                        <th scope="col-8">Texto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for envolvido in naoprocessadas %}
+                                    <tr>
+                                        <td>{{envolvido.indexador}}</td>
+                                        <td>{{envolvido.nomeComunicante}}</td>
+                                        <td>{{envolvido.informacoesAdicionais}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#table-naoprocessadas').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json',
+            },
+            order: [[1, 'asc']]
+        });
+    });
+</script>
+{% endblock %}

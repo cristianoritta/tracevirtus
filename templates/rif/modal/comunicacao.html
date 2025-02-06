@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-header">
+        Detalhes da Comunicacão
+    </div>
+    <div class="card-body row">
+        <div class="col-md-3"><strong>RIF:</strong>  {{comunicacao.rif_id}}</div>
+        <div class="col-md-3"><strong>Indexador:</strong> {{comunicacao.Indexador}}</div>
+        <div class="col-md-3"><strong>ID Comunicação:</strong> {{comunicacao.idComunicacao}}</div>
+        
+        <div class="col-md-6"><strong>Nome do Comunicante:</strong> {{comunicacao.nomeComunicante}}</div>
+        <div class="col-md-3"><strong>Cidade:</strong> {{comunicacao.CidadeAgencia}}</div>
+        <div class="col-md-3"><strong>UF:</strong> {{comunicacao.UFAgencia}}</div>
+        
+        <hr>
+        <!-- TODO: Melhorar esse design -->
+        <div class="col-md-12">
+            <strong><small>Analista:</small></strong>
+            {{analise}}
+        </div>
+
+        <hr>
+        <div class="col-md-12">
+            <strong><small>Informações Adicionais:</small></strong>
+            {{comunicacao.informacoesAdicionais}}
+        </div>
+        
+    </div>
+</div>

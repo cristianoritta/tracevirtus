@@ -1,0 +1,84 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row vh-100">
+
+    <div class="col-2 bg-white border-end border-start">
+
+        <div class="d-grid gap-2 mt-5">
+            <h5 class="fw-bold">IA Financeira</h5>
+            <p>Converse com os seus dados, usando todo o poder da Inteligência Artificial Financeira.</p>
+            <a href="/chat" class="btn btn-primary">
+                <i class="fas fa-messages"></i> Chat Virtus
+            </a>
+
+            <hr>
+            <h5 class="fw-bold">Exportar Dados</h5>
+            <p>Exportar os dados estruturados, em formato .CSV.</p>
+            <a href="/investigados/exportar" class="btn btn-primary">
+                <i class="fas fa-table"></i> Exportar Dados
+            </a>
+        </div>
+
+    </div>
+    <div class="col-10">
+        <div class="row gx-4 p-5">
+
+            <h1><strong>Investigados</strong></h1>
+
+            <div class="col-12 pb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title text-primary">
+                            <h5 class="fw-bolder">{{caso['nome']}}</h5>
+                        </div>
+                        <div class="card-tools">
+                            <a href="/pessoas/modal/investigado" class="btn btn-primary show-modal">Cadastrar Investigado</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-1">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">CPF</th>
+                                        <th scope="col" class="col-1">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for investigado in investigados %}
+                                    <tr hx-target="this" hx-swap="outerHTML">
+                                        <td>{{ investigado['id'] }}</td>
+                                        <td class="fw-bolder">{{ investigado['nome'] }}</td>
+                                        <td class="fw-bolder">{{ investigado['cpf_cnpj'] }}</td>
+                                        <td nowrap>
+                                            <a href="#"
+                                                class="btn btn-outline-danger btn-icon delete-rif"
+                                                hx-delete="/investigados/excluir/{{ investigado['id'] }}"
+                                                hx-target="closest tr"
+                                                hx-swap="none"
+                                                title="Excluir Investigado">
+                                                <i class="fas fa-trash"></i> Excluir
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                    {% if investigados|length == 0 %}
+                                    <tr>
+                                        <td colspan="20" align="center">Nenhum investigado encontrado.</td>
+                                    </tr>
+                                    {% endif %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

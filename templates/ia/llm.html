@@ -1,0 +1,69 @@
+{% extends "layouts/app.html" %}
+
+{% block site %}
+<div class="row vh-100">
+
+    <div class="col-12">
+        <div class="row gx-4 p-5">
+
+            <h1>Escolher LLM</h1>
+
+            <div class="col-12 pb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="card-title text-primary">
+                            <h5 class="fw-bolder">Escolher modelo de LLM</h5>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <form action="/ia/llm/store" method="post" class="form" name="form-llm" id="form-llm">
+
+                            <!-- TODO: Implementar no backend o seletor de IA -->
+
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="llm">Modelo de LLM</label>
+                                        <select name="llm" id="llm" class="form-select" value="{{llm.llm}}">
+                                            <option value="local">LLM Local</option>
+                                            <option value="openai">OpenAI</option>
+                                            <option value="gemini">Gemini</option>
+                                            <option value="groq">Groq</option>
+                                            <option value="llama">Llama</option>
+                                            <option value="deepseeker">Deepseeker</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="endpoint">Endpoint</label>
+                                        <input type="text" name="endpoint" id="endpoint" class="form-control" value="{{llm.endpoint}}" placeholder="Endpoint">
+                                    </div>
+
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="token">Token API</label>
+                                        <input type="password" name="token" id="token" class="form-control" value="{{llm.keys}}" placeholder="Chave de API">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" form="form-llm" class="btn btn-success">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
